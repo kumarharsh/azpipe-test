@@ -6,42 +6,23 @@
 trigger:
 - master
 
-stages:
-- stage: "test"
-  displayName: "Test project"
-  jobs:
-  - job: "install"
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '10.x'
-      displayName: 'Install Node.js'
-  - job: "deps"
-    dependsOn:
-    - "install"
-    steps:
-    - script: yarn install
-      displayName: 'Install dependencies'
-  - job: "lint"
-    dependsOn:
-    - "deps"
-    steps:
-    - script: yarn lint
-      displayName: 'Lint project'
-  - job: "build"
-    dependsOn:
-    - "deps"
-    - "lint"
-    steps:
-    - script: yarn build
-      displayName: 'Create a build'
+pool:
+  vmImage: 'ubuntu-latest'
 
-# - stage: "release"
-#   displayName: "Release"
-#   jobs:
-#   - job: "ghrelease"
-#     steps:
-#     - script: yarn release
-#       displayName: 'Cut a release to Github'
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn install
+  displayName: 'Install dependencies'
+
+- script: |
+    yarn lint
+  displayName: 'Lint project'
+
+- script: |
+    yarn build
+  displayName: 'Build project'
