@@ -7,8 +7,8 @@ trigger:
 - master
 
 stages:
-- stage: "setup"
-  displayName: "Setup"
+- stage: "test"
+  displayName: "Test project"
   jobs:
   - job: "Install"
     pool:
@@ -22,18 +22,10 @@ stages:
     steps:
     - script: yarn install
       displayName: 'Install dependencies'
-
-- stage: "test"
-  displayName: "Test project"
-  jobs:
   - job: "lint"
     steps:
     - script: yarn lint
       displayName: 'Lint project'
-
-- stage: "build"
-  displayName: "Build project"
-  jobs:
   - job: "build"
     steps:
     - script: yarn build
