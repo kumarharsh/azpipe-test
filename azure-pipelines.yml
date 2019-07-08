@@ -10,7 +10,7 @@ stages:
 - stage: "test"
   displayName: "Test project"
   jobs:
-  - job: "Install"
+  - job: "install"
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -19,14 +19,21 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
   - job: "deps"
+    dependsOn:
+    - "install"
     steps:
     - script: yarn install
       displayName: 'Install dependencies'
   - job: "lint"
+    dependsOn:
+    - "deps"
     steps:
     - script: yarn lint
       displayName: 'Lint project'
   - job: "build"
+    dependsOn:
+    - "deps"
+    - "lint"
     steps:
     - script: yarn build
       displayName: 'Create a build'
