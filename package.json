@@ -1,0 +1,20 @@
+{
+  "name": "azpipe-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/kumarharsh/azpipe-test",
+  "author": "Kumar Harsh <kumar.harsh@live.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^10.0.12",
+    "tslint": "5.18.0",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-plugin-prettier": "2.0.1",
+    "typescript": "3.5.2",
+    "prettier": "1.18.2"
+  },
+  "scripts": {
+    "build": "tsc -p src",
+    "lint": "tslint -p src"
+  }
+}
