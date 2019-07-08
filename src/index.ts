@@ -1,11 +1,14 @@
-import { hostname } from "os";
+import { hostname, arch } from "os";
+import outdent from "outdent";
 
 function getHostname(): string {
   return hostname();
 }
 
 function main() {
-  return `The hostname is ${getHostname()}`;
+  return outdent`The hostname is ${getHostname()}
+The architecture is ${arch()}
+  `;
 }
 
 console.log(main());
