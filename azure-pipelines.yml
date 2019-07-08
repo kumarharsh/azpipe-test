@@ -9,20 +9,41 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+stages:
+- stage: "setup"
+  displayName: "Setup"
+  jobs:
+  - job: "Install"
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+  - job: "Install deps"
+    steps:
+    - script: yarn install
+      displayName: 'Install dependencies'
 
-- script: |
-    yarn install
-  displayName: 'Install dependencies'
+- stage: "test"
+  displayName: "Test project"
+  jobs:
+  - job: "lint"
+    steps:
+    - script: yarn lint
+      displayName: 'Lint project'
 
-- script: |
-    yarn lint
-  displayName: 'Lint project'
+- stage: "build"
+  displayName: "Build project"
+  jobs:
+  - job: "build"
+    steps:
+    - script: yarn build
+      displayName: 'Create a build'
 
-- script: |
-    yarn build
-  displayName: 'Build project'
+# - stage: "release"
+#   displayName: "Release"
+#   jobs:
+#   - job: "ghrelease"
+#     steps:
+#     - script: yarn release
+#       displayName: 'Cut a release to Github'

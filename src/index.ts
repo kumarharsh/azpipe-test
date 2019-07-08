@@ -1,5 +1,5 @@
-import { hostname, arch } from "os";
 import outdent from "outdent";
+import { hostname, arch } from "os";
 
 function getHostname(): string {
   return hostname();
